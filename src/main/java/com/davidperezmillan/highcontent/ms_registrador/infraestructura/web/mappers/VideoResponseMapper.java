@@ -11,10 +11,8 @@ public interface VideoResponseMapper {
 
     /* metodo utilizando modelmapper para convertir una lista de videofile a una lista de videoresponse */
     static List<VideoResponse> map(List<VideoFile> videofile) {
-        ModelMapper modelMapper = new ModelMapper();
-
         return videofile.stream()
-                .map(searchPlayMaxResponse1 -> map(searchPlayMaxResponse1))
+                .map(videoFile -> map(videoFile))
                 .collect(Collectors.toList());
     }
 
