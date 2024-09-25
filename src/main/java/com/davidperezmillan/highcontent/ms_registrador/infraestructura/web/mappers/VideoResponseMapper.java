@@ -34,6 +34,13 @@ public interface VideoResponseMapper {
         if (size <= 0) return "0";
         final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
         int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-        return String.format("%.1f %s", size / Math.pow(1024, digitGroups), units[digitGroups]);
+
+        // Redondear a 1 decimal solo si es necesario
+        if (size < 1024) {
+            return String.format("%d %s", size, units[digitGroups]);
+        } else {
+            return String.format("%.1f %s", size / Math.pow(1024, digitGroups), units[digitGroups]);
+        }
     }
+
 }
