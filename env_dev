@@ -1,5 +1,5 @@
 CONTAINER_NAME=ms-registrador
 IMAGE_NAME=davidperez01/ms-registrador
 VERSION=latest
-PORT=8080
+PORT=8580
 SPRING_PROFILE=prod
