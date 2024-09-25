@@ -72,13 +72,6 @@
 			<artifactId>javacv-platform</artifactId>
 			<version>1.5.10</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.bytedeco/ffmpeg-platform -->
-		<dependency>
-			<groupId>org.bytedeco</groupId>
-			<artifactId>ffmpeg-platform</artifactId>
-			<version>6.1.1-1.5.10</version>
-		</dependency>
-
 
 
 		<dependency>
