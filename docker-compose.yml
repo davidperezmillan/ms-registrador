@@ -9,6 +9,8 @@ services:
 #            dockerfile: Dockerfile
         ports:
             - "${PORT}:8080"  # Usar la variable PORT del archivo .env
+        volumes:
+            - ${FILESYSTEM_PATH}:/input/videos  # Usar la variable FILESYSTEM_PATH del archivo .env
         environment:
             SPRING_PROFILES_ACTIVE: "${SPRING_PROFILE}"  # Usar la variable SPRING_PROFILE del archivo .env
         restart: always
