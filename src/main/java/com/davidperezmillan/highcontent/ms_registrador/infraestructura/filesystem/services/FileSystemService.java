@@ -140,15 +140,35 @@ public class FileSystemService implements FileSystemPort {
         return video;
     }
 
-
-    private void extractFrames(String videoPath, String outputFolder, int numImages) throws IOException, InterruptedException {
+    /**
+     * Metodo para extraer n images a lo largo del video
+     *
+     * @param videoPath video a extraer las imagenes
+     * @param outputFolder carpeta de salida
+     * @param nFrames numero de imagenes a extraer
+     * @throws IOException excepcion de entrada/salida
+     * @throws InterruptedException excepcion de interrupcion
+     * return
+     *
+     */
+    private void extractFrames(String videoPath, String outputFolder, int nFrames) throws IOException, InterruptedException {
         // Crear la carpeta de salida si no existe
         Files.createDirectories(Paths.get(outputFolder));
+
+        // Obtener la duración del video en segundos
+        ProcessBuilder durationBuilder = new ProcessBuilder("sh", "-c", "ffmpeg -i " + videoPath + " 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
+        Process durationProcess = durationBuilder.start();
+        String durationOutput = new String(durationProcess.getInputStream().readAllBytes()).trim();
+        String[] parts = durationOutput.split(":");
+        int totalSeconds = Integer.parseInt(parts[0]) * 3600 + Integer.parseInt(parts[1]) * 60 + Integer.parseInt(parts[2]);
+
+        // Calcular fps necesario para extraer nFrames
+        int fps = (int) Math.ceil((double) nFrames / totalSeconds);
 
         // Comando FFmpeg para extraer imágenes
         String command = String.format(
                 "ffmpeg -i %s -vf \"fps=%d\" %s/frame_%%04d.png",
-                videoPath, numImages, outputFolder
+                videoPath, fps, outputFolder
         );
 
         // Usar ProcessBuilder para ejecutar el comando en la consola
@@ -164,5 +184,8 @@ public class FileSystemService implements FileSystemPort {
 
         System.out.println("Frames extracted successfully to: " + outputFolder);
     }
+
+
+
 
 }
