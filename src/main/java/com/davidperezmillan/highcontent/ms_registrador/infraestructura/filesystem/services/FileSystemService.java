@@ -6,15 +6,9 @@ import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.filesystem.dtos.VideoResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.filesystem.mappers.VideoResponseMapper;
 import lombok.extern.log4j.Log4j2;
-import org.bytedeco.javacv.FFmpegFrameGrabber;
-import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.Java2DFrameConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -87,17 +81,6 @@ public class FileSystemService implements FileSystemPort {
             throw new IllegalArgumentException("El directorio no existe o no es un directorio válido: " + directoryPath);
         }
 
-        // voy a probar a extraer imagenes del ultimo video
-        try {
-            if (!videoFiles.isEmpty()) {
-                extractImages(videoFiles.get(videoFiles.size() - 1).getPath(), directoryPath, 5);
-            }
-        } catch (Exception e) {
-            log.error("Error al extraer imagenes del video: " + videoFiles.get(videoFiles.size() - 1).getPath(), e);
-            throw new RuntimeException(e);
-        }
-
-
         return videoFiles;
     }
 
@@ -141,42 +124,4 @@ public class FileSystemService implements FileSystemPort {
         return video;
     }
 
-
-    private void extractImages(String inputVideoPath, String outputImagePath, int numImages) throws Exception {
-        // Crear un FrameGrabber para leer el archivo de video
-        FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(inputVideoPath);
-        frameGrabber.start();
-
-        // Obtener la duración total del video y el número total de frames
-        int totalFrames = frameGrabber.getLengthInFrames();
-        int frameRate = (int) frameGrabber.getFrameRate();
-        int totalDurationInSeconds = (totalFrames / frameRate);
-
-        // Calcular los intervalos en los que se extraerán las imágenes
-        int interval = totalDurationInSeconds / numImages;
-
-        // Convertidor de Frame a BufferedImage
-        Java2DFrameConverter converter = new Java2DFrameConverter();
-
-        for (int i = 0; i < numImages; i++) {
-            // Calcular el timestamp en segundos para cada imagen
-            int timestamp = i * interval;
-
-            // Mover al frame correspondiente según el timestamp
-            frameGrabber.setTimestamp(timestamp * 1000000L);  // Conversión a microsegundos
-            Frame frame = frameGrabber.grabImage();  // Extraer el frame
-
-            if (frame != null) {
-                // Convertir el frame a BufferedImage
-                BufferedImage bufferedImage = converter.convert(frame);
-
-                // Guardar la imagen como archivo PNG
-                ImageIO.write(bufferedImage, "png", new File(outputImagePath + i + ".png"));
-
-                System.out.println("Imagen " + i + " guardada en: " + outputImagePath + i + ".png");
-            }
-        }
-
-        frameGrabber.stop();
-    }
 }
