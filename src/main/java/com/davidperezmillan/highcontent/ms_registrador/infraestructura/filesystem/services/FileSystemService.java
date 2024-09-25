@@ -81,6 +81,22 @@ public class FileSystemService implements FileSystemPort {
             throw new IllegalArgumentException("El directorio no existe o no es un directorio válido: " + directoryPath);
         }
 
+        // quiero sacar 5 imagenes del ultimo video, crear una carpeta de images y guardarlas
+        // crear una carpeta dentro de la carpeta de videos
+        // extraer las imagenes
+        // guardarlas en la carpeta creada
+        // devolver la lista de videos
+        if (!videoFiles.isEmpty()) {
+            try {
+                VideoFile lastVideo = videoFiles.get(videoFiles.size() - 1);
+                String outputFolder = directoryPath + "/images";
+                extractFrames(lastVideo.getPath(), outputFolder, 5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
         return videoFiles;
     }
 
@@ -122,6 +138,31 @@ public class FileSystemService implements FileSystemPort {
             log.warn("Error al recuperar el tamaño del fichero: " + file);
         }
         return video;
+    }
+
+
+    private void extractFrames(String videoPath, String outputFolder, int numImages) throws IOException, InterruptedException {
+        // Crear la carpeta de salida si no existe
+        Files.createDirectories(Paths.get(outputFolder));
+
+        // Comando FFmpeg para extraer imágenes
+        String command = String.format(
+                "ffmpeg -i %s -vf \"fps=%d\" %s/frame_%%04d.png",
+                videoPath, numImages, outputFolder
+        );
+
+        // Usar ProcessBuilder para ejecutar el comando en la consola
+        ProcessBuilder processBuilder = new ProcessBuilder("sh", "-c", command);
+        processBuilder.redirectErrorStream(true); // Para obtener también los errores de FFmpeg
+        Process process = processBuilder.start();
+
+        // Esperar a que el proceso termine
+        int exitCode = process.waitFor();
+        if (exitCode != 0) {
+            throw new RuntimeException("FFmpeg error: Failed to extract frames.");
+        }
+
+        System.out.println("Frames extracted successfully to: " + outputFolder);
     }
 
 }
