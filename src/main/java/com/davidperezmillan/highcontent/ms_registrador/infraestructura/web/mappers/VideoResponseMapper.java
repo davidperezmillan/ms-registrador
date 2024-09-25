@@ -23,11 +23,19 @@ public interface VideoResponseMapper {
         // map with modelmapper size to human format
         modelMapper.createTypeMap(VideoFile.class, VideoResponse.class)
                 .addMappings(mapper -> mapper.using(context -> formatSize((Long) context.getSource()))
-                        .map(VideoFile::getSize, VideoResponse::setSize));
+                        .map(VideoFile::getSize, VideoResponse::setSize))
+                // add field delete_link
+                .addMappings(mapper -> mapper.using(context -> buildDeleteLink((String) context.getSource()))
+                        .map(VideoFile::getFileName, VideoResponse::setDeleteLink));
+
 
         return modelMapper.map(videoFile, VideoResponse.class);
     }
 
+
+    static String buildDeleteLink(String fileName) {
+        return "files/delete/" + fileName;
+    }
 
     // convert size to format human string
     static String formatSize(long size) {

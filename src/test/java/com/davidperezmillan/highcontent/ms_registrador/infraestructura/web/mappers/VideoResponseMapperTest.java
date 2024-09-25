@@ -2,12 +2,14 @@ package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mapp
 
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 class VideoResponseMapperTest {
 
     private static final String SIZE_1KB = "1.0 KB";

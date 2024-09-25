@@ -10,4 +10,6 @@ public class VideoResponse {
     private String extension;
     private String size;
     private String creationDate;
+
+    private String deleteLink;
 }
