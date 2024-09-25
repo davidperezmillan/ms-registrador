@@ -99,6 +99,7 @@ public class FileSystemService implements FileSystemPort {
         video.setFileName(file.getFileName().toString());
         video.setPath(file.toString());
         video.setCreationDate(attrs.creationTime().toString());
+        video.setExtension(file.getFileName().toString().substring(file.getFileName().toString().lastIndexOf(".")));
         /*
         video.setLastAccessTime(attrs.lastAccessTime().toString());
         video.setLastModifiedTime(attrs.lastModifiedTime().toString());
