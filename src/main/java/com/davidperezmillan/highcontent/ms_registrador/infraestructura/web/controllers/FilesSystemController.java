@@ -1,7 +1,9 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.controllers;
 
-import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
+
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.ReadVideosToPathUseCase;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers.VideoResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +36,9 @@ public class FilesSystemController {
 
     
     @GetMapping("/videos")
-    public ResponseEntity<List<VideoFile>> getVideos() {
+    public ResponseEntity<List<VideoResponse>> getVideos() {
         try {
-            return ResponseEntity.ok(readVideosToPathUseCase.readVideosToPath());
+            return ResponseEntity.ok(VideoResponseMapper.map(readVideosToPathUseCase.readVideosToPath()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
