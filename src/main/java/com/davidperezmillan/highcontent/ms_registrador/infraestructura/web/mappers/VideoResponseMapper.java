@@ -10,19 +10,32 @@ import java.util.stream.Collectors;
 public interface VideoResponseMapper {
 
     /* metodo utilizando modelmapper para convertir una lista de videofile a una lista de videoresponse */
-    static List<VideoResponse> map(List<VideoFile> searchPlayMaxResponse) {
+    static List<VideoResponse> map(List<VideoFile> videofile) {
         ModelMapper modelMapper = new ModelMapper();
 
-        return searchPlayMaxResponse.stream()
-                .map(searchPlayMaxResponse1 -> modelMapper.map(searchPlayMaxResponse1, VideoResponse.class))
+        return videofile.stream()
+                .map(searchPlayMaxResponse1 -> map(searchPlayMaxResponse1))
                 .collect(Collectors.toList());
     }
 
 
-    static VideoResponse map(VideoFile searchPlayMaxResponse) {
+    static VideoResponse map(VideoFile videoFile) {
         ModelMapper modelMapper = new ModelMapper();
 
-        return modelMapper.map(searchPlayMaxResponse, VideoResponse.class);
+        // map with modelmapper size to human format
+        modelMapper.createTypeMap(VideoFile.class, VideoResponse.class)
+                .addMappings(mapper -> mapper.using(context -> formatSize((Long) context.getSource()))
+                        .map(VideoFile::getSize, VideoResponse::setSize));
+
+        return modelMapper.map(videoFile, VideoResponse.class);
     }
 
+
+    // convert size to format human string
+    static String formatSize(long size) {
+        if (size <= 0) return "0";
+        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return String.format("%.1f %s", size / Math.pow(1024, digitGroups), units[digitGroups]);
+    }
 }

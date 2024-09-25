@@ -9,7 +9,7 @@ public class VideoFile {
     private String fileName;
     private String path;
     private String extension;
-    private long size;
+    private String size;
     private String creationDate;
 
 
