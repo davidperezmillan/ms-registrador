@@ -51,7 +51,7 @@ class VideoResponseMapperTest {
                 () -> {
                     VideoFile videoFile = createVideoFile();
                     String size = VideoResponseMapper.formatSize(videoFile.getSize());
-                    assertEquals("1,0 KB", size);
+                    assertEquals("1.0 KB", size);
                 }
         );
     }
