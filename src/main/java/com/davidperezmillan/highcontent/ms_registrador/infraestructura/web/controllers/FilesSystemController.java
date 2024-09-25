@@ -1,14 +1,14 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.controllers;
 
 
+import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.DeleteVideosToPathUseCase;
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.ReadVideosToPathUseCase;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers.VideoResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -17,10 +17,12 @@ import java.util.List;
 public class FilesSystemController {
 
     private final ReadVideosToPathUseCase readVideosToPathUseCase;
+    private final DeleteVideosToPathUseCase deleteVideosToPathUseCase;
 
     @Autowired
-    public FilesSystemController(ReadVideosToPathUseCase readVideosToPathUseCase) {
+    public FilesSystemController(ReadVideosToPathUseCase readVideosToPathUseCase, DeleteVideosToPathUseCase deleteVideosToPathUseCase) {
         this.readVideosToPathUseCase = readVideosToPathUseCase;
+        this.deleteVideosToPathUseCase = deleteVideosToPathUseCase;
     }
 
     /*
@@ -43,5 +45,16 @@ public class FilesSystemController {
             throw new RuntimeException(e);
         }
     }
+
+    @DeleteMapping("/videos/{name}")
+    public ResponseEntity<Void> deleteVideos(@PathVariable String name) {
+        try {
+            deleteVideosToPathUseCase.deleteVideosToPath(name);
+            return ResponseEntity.noContent().build();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

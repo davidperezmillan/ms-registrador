@@ -84,6 +84,18 @@ public class FileSystemService implements FileSystemPort {
         return videoFiles;
     }
 
+    @Override
+    public void deleteFilesToPath(String name) throws IOException {
+        Path path = Paths.get(directoryPath + "/" + name);
+        if (Files.exists(path)) {
+            Files.delete(path);
+        } else {
+            throw new IllegalArgumentException("El fichero no existe: " + path);
+        }
+
+    }
+
+
     private static boolean isVideoFile(Path file) {
         String fileName = file.getFileName().toString().toLowerCase();
         for (String extension : VIDEO_EXTENSIONS) {

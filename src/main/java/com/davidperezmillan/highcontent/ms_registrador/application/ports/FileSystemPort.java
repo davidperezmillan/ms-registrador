@@ -11,4 +11,6 @@ public interface FileSystemPort {
 
     List<VideoFile> getVideoFilesFromPath() throws IOException;
 
+    void deleteFilesToPath(String name) throws IOException;
+
 }

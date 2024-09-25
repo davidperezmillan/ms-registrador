@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class ReadVideoToPathUseCaseService implements ReadVideosToPathUseCase {
+public class ReadVideoToPathService implements ReadVideosToPathUseCase {
 
     private final FileSystemPort fileSystemPort;
 
     @Autowired
-    public ReadVideoToPathUseCaseService(FileSystemPort fileSystemPort) {
+    public ReadVideoToPathService(FileSystemPort fileSystemPort) {
         this.fileSystemPort = fileSystemPort;
     }
 
