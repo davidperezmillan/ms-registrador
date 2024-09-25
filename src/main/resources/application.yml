@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: ms-registrador
+
+# CUSTOM
+fileSystem:
+    path: ${FILESYSTEM_PATH:/default/path/to/files}
