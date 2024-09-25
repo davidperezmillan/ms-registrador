@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VideoResponseMapperTest {
 
+    private static final String SIZE_1KB = "1.0 KB";
+
     @Test
     void map() {
         assertDoesNotThrow(
@@ -19,7 +21,7 @@ class VideoResponseMapperTest {
                     assertEquals(videoFile.getFileName(), videoResponse.getFileName());
                     assertEquals(videoFile.getPath(), videoResponse.getPath());
                     assertEquals(videoFile.getExtension(), videoResponse.getExtension());
-                    assertEquals("1,0 KB", videoResponse.getSize());
+                    assertEquals(SIZE_1KB, videoResponse.getSize());
                     assertEquals(videoFile.getCreationDate(), videoResponse.getCreationDate());
                 }
         );
@@ -37,7 +39,7 @@ class VideoResponseMapperTest {
                     assertEquals(videoFile.getFileName(), videoResponse.getFileName());
                     assertEquals(videoFile.getPath(), videoResponse.getPath());
                     assertEquals(videoFile.getExtension(), videoResponse.getExtension());
-                    assertEquals("1,0 KB", videoResponse.getSize());
+                    assertEquals(SIZE_1KB, videoResponse.getSize());
                     assertEquals(videoFile.getCreationDate(), videoResponse.getCreationDate());
 
                 }
@@ -51,7 +53,7 @@ class VideoResponseMapperTest {
                 () -> {
                     VideoFile videoFile = createVideoFile();
                     String size = VideoResponseMapper.formatSize(videoFile.getSize());
-                    assertEquals("1.0 KB", size);
+                    assertEquals(SIZE_1KB, size);
                 }
         );
     }
@@ -65,7 +67,7 @@ class VideoResponseMapperTest {
         videoFile.setFileName("video.mp4");
         videoFile.setPath("/home/user/videos");
         videoFile.setExtension("mp4");
-        videoFile.setSize(1024);
+        videoFile.setSize(1024); // SIZE_1KB
         videoFile.setCreationDate("2021-09-01");
         return videoFile;
     }
