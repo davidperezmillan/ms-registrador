@@ -2,6 +2,9 @@
 FROM openjdk:17-jdk-alpine
 LABEL authors="david"
 
+# Instalar FFmpeg
+RUN apk add --no-cache ffmpeg
+
 # Argumento para pasar el nombre del archivo JAR (esto lo hace genérico)
 ARG JAR_FILE=target/*.jar
 
