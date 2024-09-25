@@ -4,4 +4,4 @@ spring:
 
 # CUSTOM
 fileSystem:
-    path: ${FILESYSTEM_PATH:/input/videos}
+    path: /input/videos
