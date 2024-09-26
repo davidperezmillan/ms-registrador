@@ -2,6 +2,7 @@ package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.cont
 
 
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.DeleteVideosToPathUseCase;
+import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.GenerateVideoUseCase;
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.ReadVideosToPathUseCase;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers.VideoResponseMapper;
@@ -18,11 +19,15 @@ public class FilesSystemController {
 
     private final ReadVideosToPathUseCase readVideosToPathUseCase;
     private final DeleteVideosToPathUseCase deleteVideosToPathUseCase;
+    private final GenerateVideoUseCase generateVideosToPathUseCase;
 
     @Autowired
-    public FilesSystemController(ReadVideosToPathUseCase readVideosToPathUseCase, DeleteVideosToPathUseCase deleteVideosToPathUseCase) {
+    public FilesSystemController(ReadVideosToPathUseCase readVideosToPathUseCase,
+                                 DeleteVideosToPathUseCase deleteVideosToPathUseCase,
+                                 GenerateVideoUseCase generateVideosToPathUseCase) {
         this.readVideosToPathUseCase = readVideosToPathUseCase;
         this.deleteVideosToPathUseCase = deleteVideosToPathUseCase;
+        this.generateVideosToPathUseCase = generateVideosToPathUseCase;
     }
 
     /*
@@ -46,6 +51,16 @@ public class FilesSystemController {
         }
     }
 
+    @GetMapping("/videos/generate/{name}")
+    public ResponseEntity<Void> generateVideos(@PathVariable String name) {
+        try {
+            generateVideosToPathUseCase.generateImagesFromVideo(name);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @DeleteMapping("/videos/{name}")
     public ResponseEntity<Void> deleteVideos(@PathVariable String name) {
         try {
@@ -55,6 +70,8 @@ public class FilesSystemController {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
 }

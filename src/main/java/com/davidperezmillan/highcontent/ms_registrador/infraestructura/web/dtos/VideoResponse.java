@@ -12,4 +12,5 @@ public class VideoResponse {
     private String creationDate;
 
     private String deleteLink;
+    private String generateVideoLink;
 }

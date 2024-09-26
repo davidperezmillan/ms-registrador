@@ -26,15 +26,19 @@ public interface VideoResponseMapper {
                         .map(VideoFile::getSize, VideoResponse::setSize))
                 // add field delete_link
                 .addMappings(mapper -> mapper.using(context -> buildDeleteLink((String) context.getSource()))
-                        .map(VideoFile::getFileName, VideoResponse::setDeleteLink));
+                        .map(VideoFile::getFileName, VideoResponse::setDeleteLink))
+                .addMappings(mapper -> mapper.using(context -> buildGenerateVideoLink((String) context.getSource()))
+                        .map(VideoFile::getFileName, VideoResponse::setGenerateVideoLink));
 
 
         return modelMapper.map(videoFile, VideoResponse.class);
     }
 
-
+    static String buildGenerateVideoLink(String fileName) {
+        return "files/videos/generate/" + fileName;
+    }
     static String buildDeleteLink(String fileName) {
-        return "files/delete/" + fileName;
+        return "files/videos/" + fileName;
     }
 
     // convert size to format human string
