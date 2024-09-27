@@ -87,26 +87,6 @@ public class FileSystemService implements FileSystemPort {
             throw new IllegalArgumentException("El directorio no existe o no es un directorio válido: " + directoryPath);
         }
 
-        if (!videoFiles.isEmpty()) {
-            String lastVideo = videoFiles.get(videoFiles.size() - 1).getPath();
-            String outputFolder = directoryPath + "/images";
-            if (!Files.exists(Paths.get(directoryPath + "/images"))) {
-                Files.createDirectories(Paths.get(directoryPath + "/images"));
-            }
-            log.info("Procesando: {} a {}", lastVideo, outputFolder);
-            // Crear un hilo para generar el mosaico
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
-            executorService.submit(() -> {
-                try {
-                    //generator.generateMosaic(lastVideo, outputFolder, 4, 4);
-                    videoPort.extractFrameFromVideo(lastVideo, outputFolder, 30);
-                } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-            executorService.shutdown();
-        }
-
         log.info("Listado de videos recuperado correctamente");
         return videoFiles;
     }
