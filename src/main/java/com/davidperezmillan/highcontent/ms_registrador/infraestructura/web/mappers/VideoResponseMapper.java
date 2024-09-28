@@ -24,6 +24,9 @@ public interface VideoResponseMapper {
         modelMapper.createTypeMap(VideoFile.class, VideoResponse.class)
                 .addMappings(mapper -> mapper.using(context -> formatSize((Long) context.getSource()))
                         .map(VideoFile::getSize, VideoResponse::setSize))
+                // map with modelmapper creationDate to string
+                .addMappings(mapper -> mapper.using(context -> context.getSource().toString())
+                        .map(VideoFile::getCreationDate, VideoResponse::setCreationDate))
                 // add field delete_link
                 .addMappings(mapper -> mapper.using(context -> buildDeleteLink((String) context.getSource()))
                         .map(VideoFile::getFileName, VideoResponse::setDeleteLink))

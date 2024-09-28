@@ -21,6 +21,11 @@ public class ReadVideoToPathService implements ReadVideosToPathUseCase {
 
     @Override
     public List<VideoFile> readVideosToPath() throws IOException {
-        return fileSystemPort.getVideoFilesFromPath();
+        List<VideoFile> videos = fileSystemPort.getVideoFilesFromPath();
+
+        // ordenar por fecha de creacion
+        videos.sort((v1, v2) -> v1.getCreationDate().compareTo(v2.getCreationDate()));
+
+        return videos;
     }
 }
