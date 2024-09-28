@@ -5,6 +5,7 @@ import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,7 +71,7 @@ class VideoResponseMapperTest {
         videoFile.setPath("/home/user/videos");
         videoFile.setExtension("mp4");
         videoFile.setSize(1024); // SIZE_1KB
-        videoFile.setCreationDate("2021-09-01");
+
         return videoFile;
     }
 }

@@ -2,8 +2,12 @@ package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mapp
 
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +24,20 @@ public interface VideoResponseMapper {
     static VideoResponse map(VideoFile videoFile) {
         ModelMapper modelMapper = new ModelMapper();
 
+        // Custom converter for LocalDateTime to String
+        Converter<LocalDateTime, String> toStringDateConverter = new Converter<LocalDateTime, String>() {
+            @Override
+            public String convert(MappingContext<LocalDateTime, String> context) {
+                return context.getSource() == null ? null : context.getSource().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            }
+        };
+
         // map with modelmapper size to human format
         modelMapper.createTypeMap(VideoFile.class, VideoResponse.class)
                 .addMappings(mapper -> mapper.using(context -> formatSize((Long) context.getSource()))
                         .map(VideoFile::getSize, VideoResponse::setSize))
                 // map with modelmapper creationDate to string
-                .addMappings(mapper -> mapper.using(context -> context.getSource().toString())
+                .addMappings(mapper -> mapper.using(toStringDateConverter)
                         .map(VideoFile::getCreationDate, VideoResponse::setCreationDate))
                 // add field delete_link
                 .addMappings(mapper -> mapper.using(context -> buildDeleteLink((String) context.getSource()))
