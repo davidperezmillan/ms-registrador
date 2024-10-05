@@ -13,22 +13,4 @@ public class VideoFile {
     private long size;
     private LocalDateTime creationDate;
 
-
-    /*
-    private String lastModifiedDate;
-    private String lastAccessDate;
-    private String owner;
-    private String group;
-    private String permissions;
-    private String type;
-    private String duration;
-    private String resolution;
-    private String codec;
-    private String bitrate;
-    private String framerate;
-    private String audioCodec;
-    private String audioBitrate;
-    */
-
-
 }

@@ -1,8 +1,8 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.controllers.readerBot;
 
 
-import com.davidperezmillan.highcontent.ms_registrador.domain.model.Chat;
-import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.readerBot.RecoverChatsUseCase;
+import com.davidperezmillan.highcontent.ms_registrador.domain.model.Param;
+import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.readerBot.RecoverParamsUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,31 +12,32 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reader_bot") // Añade el prefijo /files a todos los endpoinds de este controlador
-public class ChatsController {
+public class ParamsController {
 
-    private final RecoverChatsUseCase recoverChatsUseCase;
+    private final RecoverParamsUseCase recoverParamsUseCase;
 
-    public ChatsController(RecoverChatsUseCase recoverChatsUseCase) {
-        this.recoverChatsUseCase = recoverChatsUseCase;
+    public ParamsController(RecoverParamsUseCase recoverParamsUseCase) {
+        this.recoverParamsUseCase = recoverParamsUseCase;
     }
 
-
-    @GetMapping("/chat")
-    public List<Chat> getChats() {
+    @GetMapping("/param")
+    public List<Param> getParams() {
         try {
-            return recoverChatsUseCase.recoverChats();
+            return recoverParamsUseCase.recoverParams();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
-    @GetMapping("/chat/{id}")
-    public Chat getChatById(@PathVariable long id) {
+    @GetMapping("/param/{key}")
+    public Param getParamByKey(@PathVariable String key) {
         try {
-            return recoverChatsUseCase.recoverChatById(id);
+            return recoverParamsUseCase.recoverParamById(key);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
+
+
 }
