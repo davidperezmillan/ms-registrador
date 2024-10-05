@@ -7,4 +7,6 @@ import java.util.List;
 public interface RecoverChatsUseCase {
 
     List<Chat> recoverChats();
+
+    Chat recoverChatById(long id);
 }

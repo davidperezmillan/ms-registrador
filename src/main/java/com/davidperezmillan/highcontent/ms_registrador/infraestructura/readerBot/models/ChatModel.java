@@ -1,4 +1,4 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.bbdd.readerBot.models;
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.readerBot.models;
 
 
 import jakarta.persistence.*;

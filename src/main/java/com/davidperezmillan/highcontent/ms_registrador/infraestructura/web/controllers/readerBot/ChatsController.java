@@ -4,6 +4,7 @@ package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.cont
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.Chat;
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.readerBot.RecoverChatsUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,15 @@ public class ChatsController {
     public List<Chat> getChats() {
         try {
             return recoverChatsUseCase.recoverChats();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    @GetMapping("/chats/{id}")
+    public Chat getChatById(@PathVariable long id) {
+        try {
+            return recoverChatsUseCase.recoverChatById(id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

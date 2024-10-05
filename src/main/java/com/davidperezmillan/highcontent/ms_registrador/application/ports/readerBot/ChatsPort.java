@@ -7,4 +7,6 @@ import java.util.List;
 public interface ChatsPort {
 
     List<Chat> getAllChats();
+
+    Chat getChat(Chat chat);
 }

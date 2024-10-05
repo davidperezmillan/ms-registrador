@@ -21,7 +21,13 @@ public class RecoverChatsService implements RecoverChatsUseCase {
 
     @Override
     public List<Chat> recoverChats() {
-        List<Chat> chats = chatsPort.getAllChats();
-        return chats;
+        return chatsPort.getAllChats();
+    }
+
+    @Override
+    public Chat recoverChatById(long id) {
+        Chat chat = new Chat();
+        chat.setId(id);
+        return chatsPort.getChat(chat);
     }
 }
