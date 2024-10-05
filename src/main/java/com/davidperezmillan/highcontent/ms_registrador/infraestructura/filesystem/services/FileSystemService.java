@@ -1,8 +1,8 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.filesystem.services;
 
 
-import com.davidperezmillan.highcontent.ms_registrador.application.ports.FileSystemPort;
-import com.davidperezmillan.highcontent.ms_registrador.application.ports.VideoPort;
+import com.davidperezmillan.highcontent.ms_registrador.application.ports.videos.FileSystemPort;
+import com.davidperezmillan.highcontent.ms_registrador.application.ports.videos.VideoPort;
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.filesystem.dtos.VideoResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.filesystem.mappers.VideoResponseMapper;
@@ -15,8 +15,6 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 @Service

@@ -1,6 +1,6 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.videos.services;
 
-import com.davidperezmillan.highcontent.ms_registrador.application.ports.VideoPort;
+import com.davidperezmillan.highcontent.ms_registrador.application.ports.videos.VideoPort;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 

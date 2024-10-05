@@ -1,7 +1,7 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers;
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers.videos;
 
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.videos.VideoResponse;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;

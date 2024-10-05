@@ -1,4 +1,4 @@
-package com.davidperezmillan.highcontent.ms_registrador.application.ports;
+package com.davidperezmillan.highcontent.ms_registrador.application.ports.videos;
 
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
 

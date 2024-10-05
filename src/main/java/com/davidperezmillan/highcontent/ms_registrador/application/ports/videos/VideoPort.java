@@ -1,4 +1,4 @@
-package com.davidperezmillan.highcontent.ms_registrador.application.ports;
+package com.davidperezmillan.highcontent.ms_registrador.application.ports.videos;
 
 import java.io.IOException;
 

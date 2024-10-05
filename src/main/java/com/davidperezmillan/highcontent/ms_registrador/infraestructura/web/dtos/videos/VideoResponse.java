@@ -1,4 +1,4 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos;
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.videos;
 
 import lombok.Data;
 

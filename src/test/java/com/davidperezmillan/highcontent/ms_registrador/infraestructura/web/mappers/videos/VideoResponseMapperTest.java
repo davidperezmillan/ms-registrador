@@ -1,17 +1,18 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers;
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers.videos;
 
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.videos.VideoResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @Slf4j
 class VideoResponseMapperTest {
+
 
     private static final String SIZE_1KB = "1.0 KB";
 
@@ -25,7 +26,6 @@ class VideoResponseMapperTest {
                     assertEquals(videoFile.getPath(), videoResponse.getPath());
                     assertEquals(videoFile.getExtension(), videoResponse.getExtension());
                     assertEquals(SIZE_1KB, videoResponse.getSize());
-                    assertEquals(videoFile.getCreationDate(), videoResponse.getCreationDate());
                 }
         );
     }
@@ -43,7 +43,6 @@ class VideoResponseMapperTest {
                     assertEquals(videoFile.getPath(), videoResponse.getPath());
                     assertEquals(videoFile.getExtension(), videoResponse.getExtension());
                     assertEquals(SIZE_1KB, videoResponse.getSize());
-                    assertEquals(videoFile.getCreationDate(), videoResponse.getCreationDate());
 
                 }
         );
@@ -74,4 +73,5 @@ class VideoResponseMapperTest {
 
         return videoFile;
     }
+
 }

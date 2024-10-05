@@ -1,11 +1,11 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.controllers;
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.controllers.videos;
 
 
-import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.DeleteVideosToPathUseCase;
-import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.GenerateVideoUseCase;
-import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.ReadVideosToPathUseCase;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.VideoResponse;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers.VideoResponseMapper;
+import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.videos.DeleteVideosToPathUseCase;
+import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.videos.GenerateVideoUseCase;
+import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.videos.ReadVideosToPathUseCase;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.videos.VideoResponse;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.mappers.videos.VideoResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

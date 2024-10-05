@@ -1,4 +1,4 @@
-package com.davidperezmillan.highcontent.ms_registrador.domain.usecases;
+package com.davidperezmillan.highcontent.ms_registrador.domain.usecases.videos;
 
 import java.io.IOException;
 

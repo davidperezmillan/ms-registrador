@@ -1,8 +1,8 @@
-package com.davidperezmillan.highcontent.ms_registrador.application.services;
+package com.davidperezmillan.highcontent.ms_registrador.application.services.videos;
 
-import com.davidperezmillan.highcontent.ms_registrador.application.ports.VideoPort;
+import com.davidperezmillan.highcontent.ms_registrador.application.ports.videos.VideoPort;
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
-import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.GenerateVideoUseCase;
+import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.videos.GenerateVideoUseCase;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
