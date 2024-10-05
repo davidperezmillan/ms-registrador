@@ -4,12 +4,16 @@ import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.videos.VideoResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
+@SpringBootTest
+@ActiveProfiles("test")
 @Slf4j
 class VideoResponseMapperTest {
 
