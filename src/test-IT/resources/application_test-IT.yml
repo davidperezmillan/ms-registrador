@@ -1,0 +1,19 @@
+spring:
+    application:
+        name: ms-registrador
+
+    datasource:
+        url: jdbc:mariadb://192.168.1.195:3308/reader_bot
+        username: admin
+        password: admin
+        driver-class-name: org.mariadb.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        database-platform: org.hibernate.dialect.MariaDBDialect
+
+
+# CUSTOM
+fileSystem:
+    path: /input/videos
