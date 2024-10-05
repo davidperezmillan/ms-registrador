@@ -14,19 +14,6 @@
 	<name>ms-registrador</name>
 	<description>Registrador de alto contenido</description>
 
-	<profiles>
-		<profile>
-			<id>dev</id>
-		</profile>
-		<profile>
-			<id>integration-test</id>
-			<properties>
-				<build.profile.id>integration-test</build.profile.id>
-				<skip.integration.tests>false</skip.integration.tests>
-				<skip.unit.tests>true</skip.unit.tests>
-			</properties>
-		</profile>
-	</profiles>
 
 	<properties>
 		<java.version>17</java.version>
@@ -34,6 +21,7 @@
 		<skip.integration.tests>true</skip.integration.tests>
 		<skip.unit.tests>false</skip.unit.tests>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -84,8 +72,9 @@
 		</dependency>
 	</dependencies>
 
+
 	<build>
-	  	<plugins>
+		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -98,63 +87,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.6.0</version>
-				<executions>
-					<!-- Indica que la carpeta con test de integracion son incluidas en la fase de test. -->
-					<execution>
-						<id>add-integration-test-sources</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<!-- Configura el directorio con pruebas de integracion. -->
-							<sources>
-								<source>src/test-IT/java</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.0</version>
-				<configuration>
-					<!-- Se salta test unitarios si el valor de skip.unit.tests property es true -->
-					<skipTests>${skip.unit.tests}</skipTests>
-					<!-- Excluye los test de integracion cuando se ejecutan test unitarios. -->
-					<excludes>
-						<exclude>**/IT/**/*</exclude>
-						<exclude>**/*IT.*</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.5.0</version>
-				<executions>
-					<execution>
-						<id>integration-tests</id>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-						<configuration>
-							<skipTests>${skip.integration.tests}</skipTests>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 		</plugins>
 	</build>
 
