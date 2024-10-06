@@ -18,8 +18,11 @@ public interface ParamMapper {
 
     static Param map(ParamsModel paramsModel) {
         ModelMapper modelMapper = new ModelMapper();
-
-
         return modelMapper.map(paramsModel, Param.class);
+    }
+
+    static ParamsModel map(Param param) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(param, ParamsModel.class);
     }
 }

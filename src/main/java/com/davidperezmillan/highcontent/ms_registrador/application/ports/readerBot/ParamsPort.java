@@ -9,4 +9,6 @@ public interface ParamsPort {
     List<Param> getAllParams();
 
     Param getParam(Param chat);
+
+    Param updateParam(Param param);
 }

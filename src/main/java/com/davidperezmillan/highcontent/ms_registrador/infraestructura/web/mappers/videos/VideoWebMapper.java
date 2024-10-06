@@ -11,12 +11,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface VideoResponseMapper {
+public interface VideoWebMapper {
 
     /* metodo utilizando modelmapper para convertir una lista de videofile a una lista de videoresponse */
     static List<VideoResponse> map(List<VideoFile> videofile) {
         return videofile.stream()
-                .map(videoFile -> map(videoFile))
+                .map(VideoWebMapper::map)
                 .collect(Collectors.toList());
     }
 

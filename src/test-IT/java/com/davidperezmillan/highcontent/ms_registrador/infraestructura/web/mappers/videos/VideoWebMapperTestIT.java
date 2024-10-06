@@ -4,18 +4,15 @@ import com.davidperezmillan.highcontent.ms_registrador.domain.model.VideoFile;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.dtos.videos.VideoResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@SpringBootTest
-@ActiveProfiles("test")
 @Slf4j
-class VideoResponseMapperTest {
+class VideoWebMapperTestIT{
 
 
     private static final String SIZE_1KB = "1.0 KB";
@@ -25,10 +22,10 @@ class VideoResponseMapperTest {
         assertDoesNotThrow(
                 () -> {
                     VideoFile videoFile = createVideoFile();
-                    VideoResponse videoResponse = VideoResponseMapper.map(videoFile);
+                    VideoResponse videoResponse = VideoWebMapper.map(videoFile);
                     assertEquals(videoFile.getFileName(), videoResponse.getFileName());
                     assertEquals(videoFile.getPath(), videoResponse.getPath());
-                    assertEquals(videoFile.getExtension(), videoResponse.getExtension());
+                    assertEquals(videoFile.getExtension()+"mierda", videoResponse.getExtension());
                     assertEquals(SIZE_1KB, videoResponse.getSize());
                 }
         );
@@ -39,7 +36,7 @@ class VideoResponseMapperTest {
         assertDoesNotThrow(
                 () -> {
                     List<VideoFile> videoFiles = createVideoFiles();
-                    List<VideoResponse> videoResponses = VideoResponseMapper.map(videoFiles);
+                    List<VideoResponse> videoResponses = VideoWebMapper.map(videoFiles);
                     assertEquals(videoFiles.size(), videoResponses.size());
                     VideoFile videoFile = videoFiles.get(0);
                     VideoResponse videoResponse = videoResponses.get(0);
@@ -58,7 +55,7 @@ class VideoResponseMapperTest {
         assertDoesNotThrow(
                 () -> {
                     VideoFile videoFile = createVideoFile();
-                    String size = VideoResponseMapper.formatSize(videoFile.getSize());
+                    String size = VideoWebMapper.formatSize(videoFile.getSize());
                     assertEquals(SIZE_1KB, size);
                 }
         );
