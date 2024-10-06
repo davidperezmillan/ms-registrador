@@ -24,9 +24,9 @@ public class RecoverParamsService implements RecoverParamsUseCase {
     }
 
     @Override
-    public Param recoverParamById(String key) {
+    public Param recoverParamById(String ky) {
         Param param = new Param();
-        param.setKey(key);
+        param.setKy(ky);
         return paramsPort.getParam(param);
     }
 }

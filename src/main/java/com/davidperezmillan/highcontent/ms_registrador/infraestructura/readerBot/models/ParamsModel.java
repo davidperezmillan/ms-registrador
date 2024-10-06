@@ -13,8 +13,8 @@ public class ParamsModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "'key'")
-    private String key;
+    @Column(name = "ky")
+    private String ky;
 
     @Column(name = "value")
     private String value;

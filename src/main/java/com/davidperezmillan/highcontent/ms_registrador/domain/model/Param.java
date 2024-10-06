@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Param {
     private Long id;
-    private String key;
+    private String ky;
     private String value;
 }

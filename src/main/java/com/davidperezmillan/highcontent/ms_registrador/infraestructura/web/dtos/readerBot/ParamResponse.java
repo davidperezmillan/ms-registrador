@@ -8,8 +8,8 @@ public class ParamResponse {
 
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("key")
-    private String key;
+    @JsonProperty("ky")
+    private String ky;
     @JsonProperty("value")
     private String value;
 }

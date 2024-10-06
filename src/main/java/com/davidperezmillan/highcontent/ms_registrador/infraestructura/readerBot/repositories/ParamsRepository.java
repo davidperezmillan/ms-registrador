@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ParamsRepository extends JpaRepository<ParamsModel, Long> {
 
-    Optional<ParamsModel> findByKey(String key);
+    Optional<ParamsModel> findByky(String ky);
 }

@@ -34,10 +34,10 @@ public class ParamsController {
         }
 
     }
-    @GetMapping("/param/{key}")
-    public ResponseEntity<ParamResponse> getParamByKey(@PathVariable String key) {
+    @GetMapping("/param/{ky}")
+    public ResponseEntity<ParamResponse> getParamByky(@PathVariable String ky) {
         try {
-            return ResponseEntity.ok(ParamWebMapper.mapToResponse(recoverParamsUseCase.recoverParamById(key)));
+            return ResponseEntity.ok(ParamWebMapper.mapToResponse(recoverParamsUseCase.recoverParamById(ky)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

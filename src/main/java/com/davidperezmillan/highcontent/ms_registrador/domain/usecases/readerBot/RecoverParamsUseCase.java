@@ -8,5 +8,5 @@ public interface RecoverParamsUseCase {
 
     List<Param> recoverParams();
 
-    Param recoverParamById(String key);
+    Param recoverParamById(String ky);
 }
