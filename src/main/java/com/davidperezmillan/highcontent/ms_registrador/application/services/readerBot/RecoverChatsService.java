@@ -5,7 +5,6 @@ import com.davidperezmillan.highcontent.ms_registrador.application.ports.readerB
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.Chat;
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.Param;
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.readerBot.RecoverChatsUseCase;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,20 +24,20 @@ public class RecoverChatsService implements RecoverChatsUseCase {
 
     @Override
     public List<Chat> recoverChats() {
-        Param param = new Param();
-        param.setKy("TELEGRAM_CHAT_ID_READER");
-        paramsPort.getParam(param);
-
-        String paramVideos = paramsPort.getParam(param).getValue();
-        String[] chatsArray = paramVideos.split(",");
+        String[] chatsVideoArray  = getParamValue("TELEGRAM_CHAT_ID_READER");
+        String[] chatsPublicidadArray = getParamValue("TELEGRAM_CHAT_ID_READER_PUBLICIDAD");
 
         List<Chat> chats = chatsPort.getAllChats();
-
         for (Chat c : chats) {
             // comprobar si el chat esta en la lista de chats
-            for (String chatId : chatsArray) {
+            for (String chatId : chatsVideoArray) {
                 if (c.getId() == Long.parseLong(chatId.trim())) {
                     c.setVideoActive(true);
+                }
+            }
+            for (String chatId : chatsPublicidadArray) {
+                if (c.getId() == Long.parseLong(chatId.trim())) {
+                    c.setPublicidadActive(true);
                 }
             }
         }
@@ -50,5 +49,13 @@ public class RecoverChatsService implements RecoverChatsUseCase {
         Chat chat = new Chat();
         chat.setId(id);
         return chatsPort.getChat(chat);
+    }
+
+    private String[] getParamValue(String ky) {
+        Param param = new Param();
+        param.setKy(ky);
+
+        String paramVideos = paramsPort.getParam(param).getValue();
+        return paramVideos.split(",");
     }
 }

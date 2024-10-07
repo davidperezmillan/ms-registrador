@@ -26,7 +26,11 @@ public class UpdateParamsService implements UpdateParamsUseCase {
     @Override
     public Param updateParam(Param param) {
         Param paramProccess = deleteDuplicateValues(param);
+        paramProccess = checkChatsExist(paramProccess);
+        return paramsPort.updateParam(paramProccess);
+    }
 
+    private Param checkChatsExist(Param paramProccess) {
         String[] values = paramProccess.getValue().split(",");
         Set<String> uniqueStrings = new HashSet<>(Arrays.asList(values));
         Iterator<String> iterator = uniqueStrings.iterator();
@@ -46,9 +50,9 @@ public class UpdateParamsService implements UpdateParamsUseCase {
             }
         }
         paramProccess.setValue(convertArrayToString(uniqueStrings.toArray(new String[0])));
-
-        return paramsPort.updateParam(paramProccess);
+        return paramProccess;
     }
+
 
     private Param deleteDuplicateValues(Param param) {
         String[] values = param.getValue().split(",");

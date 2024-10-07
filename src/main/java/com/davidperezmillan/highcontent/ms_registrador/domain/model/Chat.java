@@ -13,4 +13,5 @@ public class Chat {
     private LocalDateTime dateModified;
 
     private Boolean videoActive;
+    private Boolean publicidadActive;
 }
