@@ -24,4 +24,7 @@ public class ChatModel {
     @Column(name = "date_modified", nullable = false)
     private LocalDateTime dateModified;
 
+    @Column(name = "date_last_message", nullable = false)
+    private LocalDateTime dateLastMessage;
+
 }
