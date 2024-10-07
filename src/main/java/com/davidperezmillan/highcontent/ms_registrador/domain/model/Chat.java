@@ -11,4 +11,6 @@ public class Chat {
     private String name;
     private String type;
     private LocalDateTime dateModified;
+
+    private Boolean videoActive;
 }
