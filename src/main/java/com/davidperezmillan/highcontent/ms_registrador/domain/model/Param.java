@@ -7,4 +7,5 @@ public class Param {
     private Long id;
     private String ky;
     private String value;
+    private String type;
 }

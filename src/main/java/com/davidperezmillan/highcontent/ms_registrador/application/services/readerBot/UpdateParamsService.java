@@ -26,7 +26,9 @@ public class UpdateParamsService implements UpdateParamsUseCase {
     @Override
     public Param updateParam(Param param) {
         Param paramProccess = deleteDuplicateValues(param);
-        paramProccess = checkChatsExist(paramProccess);
+        if (paramProccess.getType().equals("chats")) {
+            paramProccess = checkChatsExist(paramProccess);
+        }
         return paramsPort.updateParam(paramProccess);
     }
 

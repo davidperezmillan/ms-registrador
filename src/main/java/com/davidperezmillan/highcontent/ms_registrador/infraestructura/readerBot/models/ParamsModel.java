@@ -19,5 +19,8 @@ public class ParamsModel {
     @Column(name = "value")
     private String value;
 
+    @Column(name="type")
+    private String type;
+
 
 }
