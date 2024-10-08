@@ -25,13 +25,19 @@ public class UpdateParamsService implements UpdateParamsUseCase {
 
     @Override
     public Param updateParam(Param param) {
-        param.setType(paramsPort.getParam(param).getType()); // recover the type of the bbdd
+        var parambbdd = paramsPort.getParam(param);
+        param.setType(parambbdd.getType());// recover the type of the bbdd
+        param.setId(parambbdd.getId());// recover the id of the bbdd
+
         Param paramProccess = deleteDuplicateValues(param);
         if (paramProccess.getType().equals("chats")) {
             paramProccess = checkChatsExist(paramProccess);
         }
         return paramsPort.updateParam(paramProccess);
     }
+
+
+
 
     private Param checkChatsExist(Param paramProccess) {
         String[] values = paramProccess.getValue().split(",");
