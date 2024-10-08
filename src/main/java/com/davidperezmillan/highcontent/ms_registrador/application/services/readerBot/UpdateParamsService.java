@@ -25,6 +25,7 @@ public class UpdateParamsService implements UpdateParamsUseCase {
 
     @Override
     public Param updateParam(Param param) {
+        param.setType(paramsPort.getParam(param).getType()); // recover the type of the bbdd
         Param paramProccess = deleteDuplicateValues(param);
         if (paramProccess.getType().equals("chats")) {
             paramProccess = checkChatsExist(paramProccess);
