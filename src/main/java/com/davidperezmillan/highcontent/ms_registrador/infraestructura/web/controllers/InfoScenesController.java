@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,7 +29,8 @@ public class InfoScenesController {
      * all scenes info
      */
     @GetMapping("/info")
-    public ResponseEntity<SceneWebResponse[]> getInfoScenes(@RequestParam int nRegistros) {
+    public ResponseEntity<SceneWebResponse[]> getInfoScenes() {
+        int nRegistros = 3;
         Scene[] resp = getListScenesUseCase.getScenes(nRegistros);
         SceneWebResponse[] lista = SceneWebResponseMapper.map(resp);
         return new ResponseEntity<>(lista, HttpStatus.OK);
