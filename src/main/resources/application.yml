@@ -3,17 +3,23 @@ spring:
         name: ms-registrador
 
     datasource:
-        url: jdbc:mariadb://192.168.1.195:3308/reader_bot
-        username: admin
-        password: admin
-        driver-class-name: org.mariadb.jdbc.Driver
+        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: password
     jpa:
         hibernate:
             ddl-auto: update
         show-sql: true
-        database-platform: org.hibernate.dialect.MariaDBDialect
+        database-platform: org.hibernate.dialect.H2Dialect
 
 
 # CUSTOM
-fileSystem:
-    path: /input/videos
+the-porndb:
+    api:
+        url: https://api.theporndb.net/scenes
+        key: Bearer Giapd3HYbbCBdlEnkhYJ1igmeQVNzXnGs4yQINEQ8d872500
+translation:
+    api:
+        url: https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-es
+        key: Bearer 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
