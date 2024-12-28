@@ -15,5 +15,15 @@ spring:
 
 
 # CUSTOM
-fileSystem:
-    path: /input/videos
+the-porndb:
+    api:
+        url: https://api.theporndb.net/scenes
+        key: ${THEPORNDB_KEY}
+translation:
+    api:
+        url: https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-es
+        key: ${TRANSLATION_KEY}
+
+const:
+    config:
+        nregistros: 5
