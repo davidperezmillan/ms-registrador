@@ -6,6 +6,10 @@ import com.davidperezmillan.highcontent.ms_registrador.domain.model.Scene;
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.GetListScenesUseCase;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class ListScenesService implements GetListScenesUseCase {
 
@@ -22,24 +26,31 @@ public class ListScenesService implements GetListScenesUseCase {
     public Scene[] getScenes(int nRegistros) {
         Scene[] scenes = dataOriginPort.getAllScenes();
 
-        // ordenar de forma aleatoria
-        for (int i = 0; i < scenes.length; i++) {
-            int randomIndexToSwap = (int) (Math.random() * scenes.length);
-            Scene temp = scenes[randomIndexToSwap];
-            scenes[randomIndexToSwap] = scenes[i];
-            scenes[i] = temp;
-        }
+        //randomiza el array
+        scenes = randomize(scenes);
 
         //reduce el array a 3 elementos
-        if (scenes.length > nRegistros) {
-            Scene[] scenesReduced = new Scene[nRegistros];
-            for (int i = 0; i < nRegistros; i++) {
-                scenesReduced[i] = scenes[i];
-            }
-            scenes = scenesReduced;
-        }
+        scenes = reduce(scenes, nRegistros);
+
+        //traduce la descripcion de las escenas
         for (Scene scene : scenes) {
             scene.setTranslationText(translatePort.translate(scene.getDescription()));
+        }
+        return scenes;
+    }
+
+    private Scene[] randomize(Scene[] scenes) {
+        // Convert the array to a list
+        List<Scene> sceneList = Arrays.asList(scenes);
+        // Shuffle the list
+        Collections.shuffle(sceneList);
+        // Convert the list back to an array
+        return sceneList.toArray(new Scene[0]);
+    }
+
+    private Scene[] reduce(Scene[] scenes, int nRegistros) {
+        if (scenes.length > nRegistros) {
+            scenes = Arrays.copyOf(scenes, nRegistros);
         }
         return scenes;
     }
