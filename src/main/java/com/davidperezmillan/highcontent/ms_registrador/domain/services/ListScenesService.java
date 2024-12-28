@@ -22,6 +22,14 @@ public class ListScenesService implements GetListScenesUseCase {
     public Scene[] getScenes(int nRegistros) {
         Scene[] scenes = dataOriginPort.getAllScenes();
 
+        // ordenar de forma aleatoria
+        for (int i = 0; i < scenes.length; i++) {
+            int randomIndexToSwap = (int) (Math.random() * scenes.length);
+            Scene temp = scenes[randomIndexToSwap];
+            scenes[randomIndexToSwap] = scenes[i];
+            scenes[i] = temp;
+        }
+
         //reduce el array a 3 elementos
         if (scenes.length > nRegistros) {
             Scene[] scenesReduced = new Scene[nRegistros];
