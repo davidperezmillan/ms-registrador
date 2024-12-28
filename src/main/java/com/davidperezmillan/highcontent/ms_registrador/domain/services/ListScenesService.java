@@ -33,9 +33,9 @@ public class ListScenesService implements GetListScenesUseCase {
         scenes = reduce(scenes, nRegistros);
 
         //traduce la descripcion de las escenas
-        for (Scene scene : scenes) {
-            scene.setTranslationText(translatePort.translate(scene.getDescription()));
-        }
+        //for (Scene scene : scenes) {
+        //    scene.setTranslationText(translatePort.translate(scene.getDescription()));
+        //}
         return scenes;
     }
 
