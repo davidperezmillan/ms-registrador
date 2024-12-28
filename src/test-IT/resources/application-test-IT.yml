@@ -18,11 +18,11 @@ spring:
 the-porndb:
     api:
         url: https://api.theporndb.net/scenes
-        key: ${THEPORNDB_KEY}
+        key: Bearer
 translation:
     api:
         url: https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-es
-        key: ${TRANSLATION_KEY}
+        key: Bearer
 
 const:
     config:
