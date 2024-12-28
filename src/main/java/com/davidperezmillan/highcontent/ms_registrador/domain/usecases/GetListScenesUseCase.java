@@ -4,5 +4,5 @@ import com.davidperezmillan.highcontent.ms_registrador.domain.model.Scene;
 
 public interface GetListScenesUseCase {
 
-    Scene[] getScenes(int nRegistros);
+    Scene[] getScenes();
 }
