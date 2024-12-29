@@ -1,5 +1,6 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.mappers;
 
+
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.Scene;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.models.DataResponse;
 import org.modelmapper.ModelMapper;

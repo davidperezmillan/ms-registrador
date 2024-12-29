@@ -1,16 +1,15 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin;
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.services;
 
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.config.RestTemplateConfig;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.models.SceneResponse;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.services.ThePorndbService;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.models.TranslateResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.services.TranslateAIService;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@Slf4j
+@Log4j2
 @SpringBootTest(classes = { TranslateAIService.class, ThePorndbService.class, RestTemplateConfig.class })
 class IntegrationOrigenDataTest {
 

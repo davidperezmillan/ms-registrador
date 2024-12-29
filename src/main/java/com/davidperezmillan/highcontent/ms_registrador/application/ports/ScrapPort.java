@@ -1,0 +1,8 @@
+package com.davidperezmillan.highcontent.ms_registrador.application.ports;
+
+import com.davidperezmillan.highcontent.ms_registrador.domain.model.Scene;
+
+public interface ScrapPort {
+
+    Scene[] allScrap();
+}

@@ -1,14 +1,14 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin;
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.services;
 
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.player.models.UserDtos;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.player.services.JellyfinService;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 
-@Slf4j
+@Log4j2
 @SpringBootTest(classes = { JellyfinService.class, RestTemplate.class })
 class JellyfinServiceTest {
 
