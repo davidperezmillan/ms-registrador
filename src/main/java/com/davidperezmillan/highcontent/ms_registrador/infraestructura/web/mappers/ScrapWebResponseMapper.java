@@ -12,7 +12,8 @@ public class ScrapWebResponseMapper {
     public static ScrapWebResponse map(Scene source) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.createTypeMap(Scene.class, ScrapWebResponse.class)
-                .addMapping(src -> src.getPosters().getLarge(), ScrapWebResponse::setPosters);
+                .addMapping(Scene::getImage, ScrapWebResponse::setPosters)
+                .addMapping(Scene::getDescription, ScrapWebResponse::setTranslationText);
 
         return modelMapper.map(source, ScrapWebResponse.class);
     }
