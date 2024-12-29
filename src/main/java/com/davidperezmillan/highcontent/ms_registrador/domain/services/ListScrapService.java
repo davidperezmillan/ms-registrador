@@ -19,9 +19,6 @@ public class ListScrapService implements GetListScrapUseCase {
     @Override
     public Scene[] getScenes() {
         Scene[] scenes = scrapPort.allScrap();
-        for (Scene scene : scenes) {
-            log.info("Scene: {}", scene);
-        }
         return scenes;
     }
 

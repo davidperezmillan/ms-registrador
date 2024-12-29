@@ -42,13 +42,13 @@ public class CerScrapService implements ScrapPort {
                 Element link = element.selectFirst("a");
                 String hrefAttrib = link.attr("href");
                 String urlElement = url + hrefAttrib;
+
                 cerScrapResponse.setDescription(getDescripcion(urlElement));
 
                 Element imagen = element.selectFirst("img");
                 cerScrapResponse.setTitle(imagen.attr("title"));
 
                 cerScrapResponse.setImage(imagen.attr("src"));
-                log.info("cerScrapResponse: {}", cerScrapResponse);
 
                 result.add(cerScrapResponse);
             }
@@ -64,7 +64,7 @@ public class CerScrapService implements ScrapPort {
         try {
             Document document = Jsoup.connect(url).get();
             Element videoInfo = document.selectFirst(".video_info");
-            return videoInfo.text();
+            return videoInfo.ownText();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
