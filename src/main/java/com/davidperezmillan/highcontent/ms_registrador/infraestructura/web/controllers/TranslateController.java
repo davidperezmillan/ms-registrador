@@ -22,8 +22,18 @@ public class TranslateController {
 
     @PostMapping
     public ResponseEntity<String> translateText(@RequestBody String text) {
+        // sanitize text
+        text = sanitizeText(text);
+        log.info("Translating text: {}", text);
         String translatedText = translateUseCase.translate(text);
         return new ResponseEntity<>(translatedText, HttpStatus.OK);
+    }
+
+    private String sanitizeText(String text) {
+        // cambiar comillas dobles por comillas simples
+        text = text.replace("\"", "'");
+        return text;
+
     }
 
 }
