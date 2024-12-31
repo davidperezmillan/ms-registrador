@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,12 +39,12 @@ public class ThePorndbService implements DataOriginPort {
     @Override
     public Scene[] getAllScenes() {
         DataResponse[] data = callApi().getData();
-//        data =  Arrays.stream(data)
-//            .filter(d -> Arrays.stream(d.getTags()).anyMatch(tag -> "desiredTagName".equals(tag.getName())))
-//                .toArray(DataResponse[]::new);
-
+        // filtrar por tag
+        data = filterByTag(data);
         return DataResponseMapper.map(data);
     }
+
+
 
     public SceneResponse callApi() {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(API_URL);
@@ -62,5 +63,14 @@ public class ThePorndbService implements DataOriginPort {
         return response.getBody();
     }
 
+    private DataResponse[] filterByTag(DataResponse[] data) {
+        String[] excludedTags = {"gay", "Twink"}; // Define los tags a excluir
+
+        data = Arrays.stream(data)
+                .filter(d -> Arrays.stream(d.getTags())
+                        .noneMatch(tag -> Arrays.asList(excludedTags).contains(tag.getName().toLowerCase())))
+                .toArray(DataResponse[]::new);
+        return data;
+    }
 
 }
