@@ -13,4 +13,6 @@ services:
             - ${FILESYSTEM_PATH}:/input/videos  # Usar la variable FILESYSTEM_PATH del archivo .env
         environment:
             SPRING_PROFILES_ACTIVE: "${SPRING_PROFILE}"  # Usar la variable SPRING_PROFILE del archivo .env
+            THEPORNDB_KEY: "${THEPORNDB_KEY}" # Usar la variable THEPORNDB_KEY del archivo .env
+            TRANSLATION_KEY: "${TRANSLATION_KEY}" # Usar la variable TRANSLATION_KEY del archivo .env
         restart: always
