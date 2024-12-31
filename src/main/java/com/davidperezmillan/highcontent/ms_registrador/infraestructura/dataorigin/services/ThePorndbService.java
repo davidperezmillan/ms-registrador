@@ -64,12 +64,13 @@ public class ThePorndbService implements DataOriginPort {
     }
 
     private DataResponse[] filterByTag(DataResponse[] data) {
-        String[] excludedTags = {"gay", "Twink"}; // Define los tags a excluir
-
+        String[] excludedTags = {"gay", "Twink", "Cockyboys"}; // Define los tags a excluir
+        log.info("data count: " + data.length);
         data = Arrays.stream(data)
                 .filter(d -> Arrays.stream(d.getTags())
                         .noneMatch(tag -> Arrays.asList(excludedTags).contains(tag.getName().toLowerCase())))
                 .toArray(DataResponse[]::new);
+        log.info("data filter count: " + data.length);
         return data;
     }
 
