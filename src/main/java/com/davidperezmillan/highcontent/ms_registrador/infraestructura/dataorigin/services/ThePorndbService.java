@@ -48,7 +48,18 @@ public class ThePorndbService implements DataOriginPort {
 
     public SceneResponse callApi() {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(API_URL);
-        String finalUrl = uriBuilder.toUriString();
+
+
+        // https://theporndb.net/scenes?orderBy=recently_created&page=1&tag_and=1&tags%5B127%5D=Threesome&tags%5B821%5D=Orgasm
+        // incluir los parametros de la url
+        uriBuilder.queryParam("orderBy", "recently_created");
+        uriBuilder.queryParam("page", 1);
+        uriBuilder.queryParam("tag_and", 1);
+        uriBuilder.queryParam("tags[127]", "Threesome");
+        uriBuilder.queryParam("tags[821]", "Orgasm");
+        log.info("URL: " + uriBuilder.toUriString());
+        String url = uriBuilder.toUriString();
+
 
         HttpHeaders httpHeaders = new HttpHeaders();
 
@@ -59,7 +70,7 @@ public class ThePorndbService implements DataOriginPort {
         }
 
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<SceneResponse> response = restTemplate.exchange(finalUrl, HttpMethod.GET, entity, SceneResponse.class);
+        ResponseEntity<SceneResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, SceneResponse.class);
         return response.getBody();
     }
 

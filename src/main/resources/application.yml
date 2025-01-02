@@ -17,7 +17,8 @@ spring:
 # CUSTOM
 the-porndb:
     api:
-        url: https://api.theporndb.net/scenes
+        # url: https://api.theporndb.net/scenes
+        url: https://api.theporndb.net/movies
         key: ${THEPORNDB_KEY:Bearer}
 translation:
     api:
