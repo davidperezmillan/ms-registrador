@@ -41,14 +41,14 @@ public class TranslateAIService implements TranslatePort {
         if (text == null || text.isEmpty()) {
             return "";
         }
-        TranslateResponse[] translateResponse = callApi(text);
-        if (translateResponse.length == 0) {
-            return "";
-        }
-        return translateResponse[0].getTranslationText();
+        String translateResponse = callApi(text);
+        return !translateResponse.isEmpty() ? translateResponse : "";
     }
 
-    public TranslateResponse[] callApi(String inputText) {
+    public String callApi(String inputText) {
+
+        StringBuilder response = new StringBuilder();
+
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(API_URL);
         String finalUrl = uriBuilder.toUriString();
 
@@ -56,28 +56,46 @@ public class TranslateAIService implements TranslatePort {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", API_KEY);
 
-        // recortar texto a 512 caracteres
-        if (inputText.length() > 512) {
-            inputText = inputText.substring(0, 512);
-        }
 
-        // Create the body with the "inputs" field
-        Map<String, String> body = new HashMap<>();
-        body.put("inputs", inputText);
-        body.put("truncation", "only_first");
+        // partir el texto en frases en caso de que sea muy largo
 
-        try{
-            HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, httpHeaders);
-            ResponseEntity<TranslateResponse[]> response = restTemplate.exchange(finalUrl, HttpMethod.POST, entity, TranslateResponse[].class);
-            return response.getBody();
-        } catch (HttpClientErrorException e) {
-            log.error("Error en la llamada a la API de traducción: {}", e.getMessage());
-            return new TranslateResponse[0];
-        }catch (HttpServerErrorException e) {
-            log.error("Error en la llamada a la API de traducción: {}", e.getMessage());
-            return new TranslateResponse[0];
+        String[] inputs = splitTextIntoChunks(inputText, 500);
+
+        for (String input : inputs) {
+            log.info("Peticion a la API de traducción: {}", input);
+            // Create the body with the "inputs" field
+            Map<String, String> body = new HashMap<>();
+            body.put("inputs", input);
+            body.put("truncation", "only_first");
+
+            try {
+                HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, httpHeaders);
+                ResponseEntity<TranslateResponse[]> resp = restTemplate.exchange(finalUrl, HttpMethod.POST, entity, TranslateResponse[].class);
+                response.append(resp.getBody()[0].getTranslationText());
+            } catch (HttpClientErrorException e) {
+                log.error("Error en la llamada a la API de traducción: {}", e.getMessage());
+                return response.toString();
+            } catch (HttpServerErrorException e) {
+                log.error("Error en la llamada a la API de traducción: {}", e.getMessage());
+                return response.toString();
+            }
         }
+        return response.toString();
     }
 
+
+    private String[] splitTextIntoChunks(String text, int chunkSize) {
+        int textLength = text.length();
+        int arraySize = (int) Math.ceil((double) textLength / chunkSize);
+        String[] chunks = new String[arraySize];
+
+        for (int i = 0; i < arraySize; i++) {
+            int start = i * chunkSize;
+            int end = Math.min(start + chunkSize, textLength);
+            chunks[i] = text.substring(start, end);
+        }
+
+        return chunks;
+    }
 
 }
