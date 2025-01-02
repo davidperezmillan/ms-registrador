@@ -1,6 +1,7 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.services;
 
 import com.davidperezmillan.highcontent.ms_registrador.application.ports.DataOriginPort;
+import com.davidperezmillan.highcontent.ms_registrador.domain.model.MovieTypeEnum;
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.Scene;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.mappers.DataResponseMapper;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.models.DataResponse;
@@ -37,17 +38,21 @@ public class ThePorndbService implements DataOriginPort {
 
 
     @Override
-    public Scene[] getAllScenes() {
-        DataResponse[] data = callApi().getData();
+    public Scene[] getAllScenes(MovieTypeEnum movieTypeEnum) {
+
+        // recuperar de properties la url de forma dinamica con el tipo de pelicula
+        String url = API_URL + "/"+ movieTypeEnum.toString().toLowerCase();
+
+        SceneResponse sceneResponse = callApi(url);
         // filtrar por tag
-        data = filterByTag(data);
+        DataResponse[] data = filterByTag(sceneResponse.getData());
         return DataResponseMapper.map(data);
     }
 
 
 
-    public SceneResponse callApi() {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(API_URL);
+    public SceneResponse callApi(String url) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url);
 
 
         // https://theporndb.net/scenes?orderBy=recently_created&page=1&tag_and=1&tags%5B127%5D=Threesome&tags%5B821%5D=Orgasm
@@ -58,7 +63,6 @@ public class ThePorndbService implements DataOriginPort {
         uriBuilder.queryParam("tags[127]", "Threesome");
         uriBuilder.queryParam("tags[821]", "Orgasm");
         log.info("URL: " + uriBuilder.toUriString());
-        String url = uriBuilder.toUriString();
 
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -70,7 +74,7 @@ public class ThePorndbService implements DataOriginPort {
         }
 
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<SceneResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, SceneResponse.class);
+        ResponseEntity<SceneResponse> response = restTemplate.exchange(uriBuilder.toUriString(), HttpMethod.GET, entity, SceneResponse.class);
         return response.getBody();
     }
 

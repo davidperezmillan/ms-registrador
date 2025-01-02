@@ -2,7 +2,6 @@ package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorig
 
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.config.RestTemplateConfig;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.models.SceneResponse;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.models.TranslateResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.services.TranslateAIService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -22,10 +21,12 @@ class IntegrationOrigenDataTest {
     @Test
     void callApi() {
         log.info("Test ThePorndbService");
-        SceneResponse thePorndbResponse = thePorndbService.callApi();
+        // build url
+        String url = "https://api.theporndb.net/scenes";
+        SceneResponse thePorndbResponse = thePorndbService.callApi(url);
         for (int i = 0; i < 5; i++) {
-            TranslateResponse[] respuesta = translateAIService.callApi(thePorndbResponse.getData()[i].getDescription());
-            log.info("titulo {}\n {}", thePorndbResponse.getData()[i].getTitle(),respuesta[0].getTranslationText());
+            String respuesta = translateAIService.callApi(thePorndbResponse.getData()[i].getDescription());
+            log.info("titulo {}\n {}", thePorndbResponse.getData()[i].getTitle(),respuesta);
         }
 
 

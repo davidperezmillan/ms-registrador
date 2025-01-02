@@ -17,7 +17,8 @@ class ThePorndbServiceTest {
 
     @Test
     void callApi() {
-        SceneResponse sceneResponse = thePorndbService.callApi();
+        String url = "https://api.theporndb.net/scenes";
+        SceneResponse sceneResponse = thePorndbService.callApi(url);
         for (DataResponse data : sceneResponse.getData()) {
             log.info("titulo: {}, descripcion: {}", data.getTitle(), data.getDescription());
             log.info("trailers: {}", data.getTrailer());

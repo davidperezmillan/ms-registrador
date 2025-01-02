@@ -1,6 +1,7 @@
 package com.davidperezmillan.highcontent.ms_registrador.domain.services;
 
 import com.davidperezmillan.highcontent.ms_registrador.application.ports.DataOriginPort;
+import com.davidperezmillan.highcontent.ms_registrador.domain.model.MovieTypeEnum;
 import com.davidperezmillan.highcontent.ms_registrador.domain.model.Scene;
 import com.davidperezmillan.highcontent.ms_registrador.domain.usecases.GetListScenesUseCase;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +20,8 @@ public class ListScenesService implements GetListScenesUseCase {
     }
 
     @Override
-    public Scene[] getScenes() {
-        Scene[] scenes = dataOriginPort.getAllScenes();
+    public Scene[] getScenes(MovieTypeEnum movieTypeEnum) {
+        Scene[] scenes = dataOriginPort.getAllScenes(movieTypeEnum);
 
 
         //randomiza el array

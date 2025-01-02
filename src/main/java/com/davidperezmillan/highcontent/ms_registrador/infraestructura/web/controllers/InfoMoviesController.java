@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Log4j2
 @RestController
-@RequestMapping("/scenes")
-public class InfoScenesController {
+@RequestMapping("/movies")
+public class InfoMoviesController {
 
 
     private final GetListScenesUseCase getListScenesUseCase;
 
-    public InfoScenesController(GetListScenesUseCase getListScenesUseCase) {
+    public InfoMoviesController(GetListScenesUseCase getListScenesUseCase) {
         this.getListScenesUseCase = getListScenesUseCase;
     }
 
@@ -32,7 +32,7 @@ public class InfoScenesController {
      */
     @GetMapping("/info")
     public ResponseEntity<SceneWebResponse[]> getInfoScenes() {
-        Scene[] resp = getListScenesUseCase.getScenes(MovieTypeEnum.SCENES);
+        Scene[] resp = getListScenesUseCase.getScenes(MovieTypeEnum.MOVIES);
         log.info("Scenes info requested: {} elements", resp.length);
         SceneWebResponse[] lista = SceneWebResponseMapper.map(resp);
         return new ResponseEntity<>(lista, HttpStatus.OK);
