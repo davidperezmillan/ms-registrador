@@ -43,19 +43,7 @@ public class ThePorndbService implements DataOriginPort {
         // recuperar de properties la url de forma dinamica con el tipo de pelicula
         String url = API_URL + "/"+ movieTypeEnum.toString().toLowerCase();
 
-        SceneResponse sceneResponse = callApi(url);
-        // filtrar por tag
-        DataResponse[] data = filterByTag(sceneResponse.getData());
-        return DataResponseMapper.map(data);
-    }
-
-
-
-    public SceneResponse callApi(String url) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url);
-
-
-        // https://theporndb.net/scenes?orderBy=recently_created&page=1&tag_and=1&tags%5B127%5D=Threesome&tags%5B821%5D=Orgasm
         // incluir los parametros de la url
         uriBuilder.queryParam("orderBy", "recently_created");
         uriBuilder.queryParam("page", 1);
@@ -64,7 +52,26 @@ public class ThePorndbService implements DataOriginPort {
         uriBuilder.queryParam("tags[821]", "Orgasm");
         log.info("URL: " + uriBuilder.toUriString());
 
+        SceneResponse sceneResponse = callApi(url);
+        // filtrar por tag
+        DataResponse[] data = filterByTag(sceneResponse.getData());
+        return DataResponseMapper.map(data);
+    }
 
+    @Override
+    public Scene[] getScenesByTitle(MovieTypeEnum movieTypeEnum, String title) {
+        String url = API_URL + "/"+ movieTypeEnum.toString().toLowerCase();
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url);
+        uriBuilder.queryParam("page", 1);
+        uriBuilder.queryParam("q", title);
+        SceneResponse sceneResponse = callApi(uriBuilder.toUriString());
+        return DataResponseMapper.map(sceneResponse.getData());
+
+    }
+
+
+    public SceneResponse callApi(String url) {
+        log.info("URL: " + url);
         HttpHeaders httpHeaders = new HttpHeaders();
 
         HashMap<String, String> headers = new HashMap<>();
@@ -74,7 +81,8 @@ public class ThePorndbService implements DataOriginPort {
         }
 
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<SceneResponse> response = restTemplate.exchange(uriBuilder.toUriString(), HttpMethod.GET, entity, SceneResponse.class);
+        ResponseEntity<SceneResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, SceneResponse.class);
+        log.info("response: " + response.getBody());
         return response.getBody();
     }
 

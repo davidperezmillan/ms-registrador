@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -37,4 +38,13 @@ public class InfoScenesController {
         SceneWebResponse[] lista = SceneWebResponseMapper.map(resp);
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
+
+    @GetMapping("/title")
+    public ResponseEntity<SceneWebResponse[]> getInfoScenesTitle(@RequestParam String title) {
+        Scene[] resp = getListScenesUseCase.getScenesByTitle(MovieTypeEnum.SCENES, title);
+        log.info("Scene by title info requested: {} elements", resp.length);
+        SceneWebResponse[] lista = SceneWebResponseMapper.map(resp);
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
 }

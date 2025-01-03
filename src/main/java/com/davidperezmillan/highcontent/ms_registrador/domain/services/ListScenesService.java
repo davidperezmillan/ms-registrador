@@ -22,34 +22,14 @@ public class ListScenesService implements GetListScenesUseCase {
     @Override
     public Scene[] getScenes(MovieTypeEnum movieTypeEnum) {
         Scene[] scenes = dataOriginPort.getAllScenes(movieTypeEnum);
-
-
-        //randomiza el array
-        //scenes = randomize(scenes);
-
-        //reduce el array a 3 elementos
-        //scenes = reduce(scenes, nRegistros);
-
-        //traduce la descripcion de las escenas
-        //for (Scene scene : scenes) {
-        //    scene.setTranslationText(translatePort.translate(scene.getDescription()));
-        //}
         return scenes;
     }
 
-//    private Scene[] randomize(Scene[] scenes) {
-//        // Convert the array to a list
-//        List<Scene> sceneList = Arrays.asList(scenes);
-//        // Shuffle the list
-//        Collections.shuffle(sceneList);
-//        // Convert the list back to an array
-//        return sceneList.toArray(new Scene[0]);
-//    }
-//
-//    private Scene[] reduce(Scene[] scenes, int nRegistros) {
-//        if (scenes.length > nRegistros) {
-//            scenes = Arrays.copyOf(scenes, nRegistros);
-//        }
-//        return scenes;
-//    }
+    @Override
+    public Scene[] getScenesByTitle(MovieTypeEnum movieTypeEnum, String title) {
+        Scene[] scenes = dataOriginPort.getScenesByTitle(movieTypeEnum, title);
+        return scenes;
+    }
+
+
 }

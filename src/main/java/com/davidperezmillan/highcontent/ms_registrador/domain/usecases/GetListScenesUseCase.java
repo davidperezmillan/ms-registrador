@@ -6,4 +6,6 @@ import com.davidperezmillan.highcontent.ms_registrador.domain.model.Scene;
 public interface GetListScenesUseCase {
 
     Scene[] getScenes(MovieTypeEnum movieTypeEnum);
+
+    Scene[] getScenesByTitle(MovieTypeEnum movieTypeEnum,String title);
 }

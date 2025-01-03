@@ -7,4 +7,6 @@ public interface DataOriginPort {
 
 
     Scene[] getAllScenes(MovieTypeEnum movieTypeEnum);
+
+    Scene[] getScenesByTitle(MovieTypeEnum movieTypeEnum,String title);
 }
