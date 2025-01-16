@@ -1,7 +1,6 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.dataorigin.services;
 
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.config.RestTemplateConfig;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.models.TranslateResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.services.TranslateAIService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ class TranslateAIServiceTest {
     @Test
     void callApi() {
 
-        TranslateResponse[] respuesta = translateAIService.callApi("hell is a place on earth");
-        log.info("Respuesta: {}", respuesta[0].getTranslationText());
+        String respuesta = translateAIService.callApi("hell is a place on earth");
+        log.info("Respuesta: {}", respuesta);
     }
 }
