@@ -1,6 +1,6 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.services;
 
-import com.davidperezmillan.highcontent.ms_registrador.application.ports.TranslatePort;
+import com.davidperezmillan.highcontent.ms_registrador.application.translate.ports.TranslatePort;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.translate.models.TranslateResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +55,9 @@ public class TranslateAIService implements TranslatePort {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", API_KEY);
+
+
+        log.info("url: {}, api-key: {}", finalUrl, API_KEY);
 
 
         // partir el texto en frases en caso de que sea muy largo

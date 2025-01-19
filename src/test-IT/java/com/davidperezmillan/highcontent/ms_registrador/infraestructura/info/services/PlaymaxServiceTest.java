@@ -1,6 +1,7 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.info.services;
 
 import com.davidperezmillan.highcontent.ms_registrador.domain.media.models.Media;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.media.services.PlaymaxService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

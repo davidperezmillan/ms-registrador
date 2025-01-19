@@ -1,0 +1,40 @@
+package com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.translate.controller;
+
+
+import com.davidperezmillan.highcontent.ms_registrador.domain.translate.usecases.TranslateUseCase;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@Log4j2
+@RestController
+@RequestMapping("/translate")
+public class TranslateController {
+
+    private final TranslateUseCase translateUseCase;
+
+    public TranslateController(TranslateUseCase translateUseCase) {
+        this.translateUseCase = translateUseCase;
+    }
+
+    @PostMapping
+    public ResponseEntity<String> translateText(@RequestBody String text) {
+        // sanitize text
+        text = sanitizeText(text);
+        log.info("Translating text: {}", text);
+        String translatedText = translateUseCase.translate(text);
+        return new ResponseEntity<>(translatedText, HttpStatus.OK);
+    }
+
+    private String sanitizeText(String text) {
+        // cambiar comillas dobles por comillas simples
+        text = text.replace("\"", "'");
+        return text;
+
+    }
+
+}

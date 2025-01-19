@@ -15,14 +15,16 @@ spring:
 
 
 # CUSTOM
-the-porndb:
-    api:
-        url: https://api.theporndb.net/scenes
-        key: Bearer
 translation:
     api:
         url: https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-es
         key: Bearer
+
+portainer:
+    api:
+        url: http://192.168.68.195:9000
+        key:
+
 
 const:
     config:
