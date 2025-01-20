@@ -78,10 +78,10 @@ public class PortainerService  implements PortainerPort {
             //log.info("Respuesta de la API de Portainer: {}", resp.getBody());
             return resp.getBody();
         } catch (HttpClientErrorException e) {
-            log.error("Error en la llamada a la API de traducción: {}", e.getMessage());
+            log.error("Error en la llamada a la API de portainer: {}", e.getMessage());
             throw e;
         } catch (HttpServerErrorException e) {
-            log.error("Error en la llamada a la API de traducción: {}", e.getMessage());
+            log.error("Error en la llamada a la API de portainer: {}", e.getMessage());
             throw e;
         }
     }
