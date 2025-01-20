@@ -5,7 +5,7 @@ import com.davidperezmillan.highcontent.ms_registrador.domain.portainer.usecases
 import com.davidperezmillan.highcontent.ms_registrador.domain.portainer.usecases.ProccessContainerUseCase;
 import com.davidperezmillan.highcontent.ms_registrador.domain.portainer.usecases.StartContainerUseCase;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.portainer.mappers.ContainerResponseMapper;
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.portainer.models.ContainerResponse;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.portainer.models.ContainersResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.web.portainer.models.StartContainer;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -34,17 +34,17 @@ public class PortainerController {
      * get Container
      */
     @GetMapping("/container")
-    public ResponseEntity<ContainerResponse[]> getContainer() {
+    public ResponseEntity<ContainersResponse> getContainer() {
         Container[] Container = getContainerUseCase.getContainer();
-        ContainerResponse[] containersStop = ContainerResponseMapper.map(Container);
-        return new ResponseEntity<>(containersStop, HttpStatus.OK);
+        ContainersResponse containersResponse = new ContainersResponse(ContainerResponseMapper.map(Container));
+        return new ResponseEntity<>(containersResponse, HttpStatus.OK);
     }
 
     @GetMapping("/stop")
-    public ResponseEntity<ContainerResponse[]> getContainerStop() {
+    public ResponseEntity<ContainersResponse> getContainerStop() {
         Container[] Container = getContainerUseCase.getContainerStop();
-        ContainerResponse[] containersStop = ContainerResponseMapper.map(Container);
-        return new ResponseEntity<>(containersStop, HttpStatus.OK);
+        ContainersResponse containersResponse = new ContainersResponse(ContainerResponseMapper.map(Container));
+        return new ResponseEntity<>(containersResponse, HttpStatus.OK);
     }
 
 
