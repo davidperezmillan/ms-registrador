@@ -24,7 +24,7 @@ translation:
 portainer:
     api:
         url: http://192.168.68.195:9000
-        key: ptr_p3TBBClg7K/NFpatTL4sN7OR+QEEEq6vtTkByYhUrw4=
+        key: ${PORTAINER_KEY:}
 const:
     config:
         nregistros: 5
