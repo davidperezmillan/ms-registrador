@@ -1,6 +1,9 @@
 package com.davidperezmillan.highcontent.ms_registrador.infraestructura.portainer.services;
 
-import com.davidperezmillan.highcontent.ms_registrador.infraestructura.portainer.models.Container;
+import com.davidperezmillan.highcontent.ms_registrador.application.portainer.PortainerPort;
+import com.davidperezmillan.highcontent.ms_registrador.domain.portainer.models.Container;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.portainer.mappers.ContainerPortainerResponseMapper;
+import com.davidperezmillan.highcontent.ms_registrador.infraestructura.portainer.models.ContainerPortainerResponse;
 import com.davidperezmillan.highcontent.ms_registrador.infraestructura.portainer.models.StatusEnum;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,13 +18,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 @Log4j2
-public class PortainerService {
+public class PortainerService  implements PortainerPort {
 
     @Value("${portainer.api.url}")
     private String API_URL;
@@ -35,7 +37,30 @@ public class PortainerService {
         this.restTemplate = restTemplate;
     }
 
-    public List<Container> getContainersExited(StatusEnum estado) {
+    @Override
+    public Container[] getContainer() {
+        return  ContainerPortainerResponseMapper.map(getAllContainers());
+    }
+
+    @Override
+    public Container[] getContainerStop() {
+        return ContainerPortainerResponseMapper.map(getContainersByEstado(StatusEnum.EXITED));
+    }
+
+    @Override
+    public void startContainer(String containerId) {
+        startContainerByID(containerId);
+    }
+
+    private ContainerPortainerResponse[] getContainersByEstado(StatusEnum estado){
+        // filtramos los contenedores que estén en estado EXITED
+        return Arrays.stream(getAllContainers())
+                .filter(containerPortainerResponse -> containerPortainerResponse.getState().equals(estado.getValue()))
+                .collect(Collectors.toList())
+                .toArray(new ContainerPortainerResponse[0]);
+    }
+
+    private ContainerPortainerResponse[] getAllContainers() {
         // crear la llamada a la API de Portainer
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(API_URL + "/api/endpoints/2/docker/containers/json")
                 .queryParam("all", true);
@@ -47,14 +72,11 @@ public class PortainerService {
         httpHeaders.set("Accept", "application/json");
         httpHeaders.set("X-API-Key", API_KEY);
 
-        log.info("url: {}, api-key: {}", finalUrl, API_KEY);
-
         try {
             HttpEntity<Map<String, String>> entity = new HttpEntity<>(httpHeaders);
-            ResponseEntity<Container[]> resp = restTemplate.exchange(finalUrl, HttpMethod.GET, entity, Container[].class);
-            return List.of(Arrays.stream(resp.getBody())
-                    .filter(container -> container.getState().equals(estado.getValue()))
-                    .collect(Collectors.toList()).toArray(new Container[0]));
+            ResponseEntity<ContainerPortainerResponse[]> resp = restTemplate.exchange(finalUrl, HttpMethod.GET, entity, ContainerPortainerResponse[].class);
+            //log.info("Respuesta de la API de Portainer: {}", resp.getBody());
+            return resp.getBody();
         } catch (HttpClientErrorException e) {
             log.error("Error en la llamada a la API de traducción: {}", e.getMessage());
             throw e;
@@ -64,7 +86,9 @@ public class PortainerService {
         }
     }
 
-    public void startContainer(String containerId) {
+
+
+    private void startContainerByID(String containerId) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(API_URL + "/api/endpoints/2/docker/containers/" + containerId + "/start");
         String finalUrl = uriBuilder.toUriString();
 
@@ -85,4 +109,7 @@ public class PortainerService {
             throw e;
         }
     }
+
+
+
 }

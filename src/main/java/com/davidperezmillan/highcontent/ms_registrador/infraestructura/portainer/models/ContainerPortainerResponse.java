@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class Container {
+public class ContainerPortainerResponse {
     @JsonProperty("Command")
     private String command;
 
