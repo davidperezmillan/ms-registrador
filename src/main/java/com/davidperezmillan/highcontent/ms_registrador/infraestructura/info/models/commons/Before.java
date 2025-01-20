@@ -1,9 +1,0 @@
-package com.davidperezmillan.highcontent.ms_registrador.infraestructura.info.models.commons;
-
-import lombok.Data;
-
-@Data
-public class Before {
-    private int season;
-    private int episode;
-}

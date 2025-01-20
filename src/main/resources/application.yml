@@ -15,15 +15,14 @@ spring:
 
 
 # CUSTOM
-the-porndb:
-    api:
-        url: https://api.theporndb.net
-        key: ${THEPORNDB_KEY:Bearer}
 translation:
     api:
         url: https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-es
         key: ${TRANSLATION_KEY:Bearer}
-
+portainer:
+    api:
+        url: http://192.168.68.195:9000
+        key: ptr_p3TBBClg7K/NFpatTL4sN7OR+QEEEq6vtTkByYhUrw4=
 const:
     config:
         nregistros: 5
